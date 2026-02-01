@@ -11,7 +11,7 @@ resource "aws_instance" "web" {
   }
 
   tags = merge(local.common_tags, {
-    Name = "06-resources-ec2"
+    Name = "01-Project"
   })
 
   lifecycle {
