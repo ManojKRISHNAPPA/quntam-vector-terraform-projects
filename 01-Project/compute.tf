@@ -1,5 +1,5 @@
 resource "aws_instance" "web" {
-  ami                         = "ami-055a9df0c8c9f681c"
+  ami                         = "ami-0786adace1541ca80"
   associate_public_ip_address = true
   instance_type               = "t3.micro"
   subnet_id                   = aws_subnet.public.id
@@ -17,14 +17,15 @@ resource "aws_instance" "web" {
   lifecycle {
     create_before_destroy = true
   }
+
   user_data = <<-EOF
       #!/bin/bash
-      sudo yum update
-      sudo yum install httpd -y
+      sudo apt update
+      sudo apt install apache2
       echo "<h1> This is from terraform script </h1>" >> /var/www/html/index.html
-      sudo systemctl enable httpd
-      sudo systemctl start httpd
-      sudo hostname terrafom server
+      sudo systemctl enable apache2
+      sudo systemctl start apache2
+      sudo hostname webserver
   EOF
   
 }
